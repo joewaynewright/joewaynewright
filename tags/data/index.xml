@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>data on Joe Wright&#39;s Github Site</title>
+    <link>http://joewaynewright.github.io/tags/data/</link>
+    <description>Recent content in data on Joe Wright&#39;s Github Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 16 Mar 2021 21:13:14 -0500</lastBuildDate><atom:link href="http://joewaynewright.github.io/tags/data/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sports Data Analysis and Visualization</title>
+      <link>http://joewaynewright.github.io/post/2021/03/16/sports-data-analysis-and-visualization/</link>
+      <pubDate>Tue, 16 Mar 2021 21:13:14 -0500</pubDate>
+      
+      <guid>http://joewaynewright.github.io/post/2021/03/16/sports-data-analysis-and-visualization/</guid>
+      <description>This is a faux post for my website so I can get the hang of posting blogs! For my big project this semester, I’m interested in finding out what position in the NBA is the most important? I want to analyze which position brings a team the most win shares and which players in said positions are outliers. I’m also interested in finding out which position has the best shooting percentages, turnover ratio and more!</description>
+    </item>
+    
+  </channel>
+</rss>
