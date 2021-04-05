@@ -15,11 +15,14 @@
 
     
       
-      <meta property="description" content="One of the longest held debates amongst NBA fanatics is over which player deserves the Most Valuable Player (MVP) award for each given season. It is a purposefully subjective award that stirs the pot &amp;hellip;">
-      <meta property="og:description" content="One of the longest held debates amongst NBA fanatics is over which player deserves the Most Valuable Player (MVP) award for each given season. It is a purposefully subjective award that stirs the pot &amp;hellip;">
+      <meta property="description" content="One of the most heated debates amongst NBA fanatics is over which player deserves the Most Valuable Player (MVP) award for each given season. It is a purposefully subjective award that stirs the pot &amp;hellip;">
+      <meta property="og:description" content="One of the most heated debates amongst NBA fanatics is over which player deserves the Most Valuable Player (MVP) award for each given season. It is a purposefully subjective award that stirs the pot &amp;hellip;">
       
     
 
+    
+    
+    <meta name="twitter:image" content="http://joewaynewright.github.io/post/2021/04/05/what-was-the-most-valuable-position-in-the-nba-during-the-2019-2020-season/index_files/figure-html/unnamed-chunk-3-1.png">
     
     
 
@@ -90,9 +93,9 @@
 <script src="http://joewaynewright.github.io/post/2021/04/05/what-was-the-most-valuable-position-in-the-nba-during-the-2019-2020-season/index_files/header-attrs/header-attrs.js"></script>
 
 
-<p>One of the longest held debates amongst NBA fanatics is over which player deserves the Most Valuable Player (MVP) award for each given season. It is a purposefully subjective award that stirs the pot and incites heated arguments between both media members and fans about what value really means in the NBA.</p>
-<p>While this debate is a fascinating discussion, I want to look at player value in a broader sense. What I want to find out is what is the most valuable position in the NBA? Which position is responsible for the most wins, which are the least replaceable and which ones don’t have as much of an impact?</p>
-<p>While I would love to analyze positional value in the NBA for as long as the league has been active, I simply don’t have the means of acquiring decades of player statistics. Instead, I concentrated my focus on the 2019-2020 NBA season. Looking at the past season’s data allows me to also investigate another media talking point: the death of the center position. Small ball is all the rage… or is it?</p>
+<p>One of the most heated debates amongst NBA fanatics is over which player deserves the Most Valuable Player (MVP) award for each given season. It is a purposefully subjective award that stirs the pot and incites heated arguments between both media members and fans about what value really means in the NBA.</p>
+<p>While this debate is a fascinating discussion, I want to look at player value in a much broader sense. I want to find out what the most valuable position is in the NBA. Which position is responsible for the most wins, which is the least replaceable and which ones don’t have as much of an impact?</p>
+<p>While I would love to analyze positional value in the NBA for as long as the league has been active, I simply don’t have the means of acquiring several decades worth of player statistics. Instead, I concentrated my focus on the 2019-2020 NBA season. Looking at the past season’s data allows me to also investigate another media talking point: the death of the center position. All you ever hear about is that small ball is all the rage… or is it?</p>
 <p>Let’s go ahead and find out!</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.0.4</code></pre>
@@ -146,8 +149,111 @@ library(scales)</code></pre>
 ## )
 ## i Use `spec()` for the full column specifications.</code></pre>
 <p>Before delving into statistics, we need to find out what advanced metrics are the best at identifying player value. Unlike in baseball, basketball does not have a “holy grail” end-all single statistic for player value. For this study, I will be using two advanced metrics that I believe are the best at calculating value.</p>
-<p>The first is win shares. This statistic measures a player’s contribution to a team’s win total by a measure of the player’s offense, defense and playing time. It’s a great statistic that can showcase impact on team success</p>
+<p>The first is win shares. This statistic measures a player’s contribution to a team’s win total by a measure of the player’s offense, defense and playing time. It’s a great statistic that can showcase impact on team success.</p>
 <p>The next statistic I’ll be using is VORP, or value-over-replacement-player. This stat also calculates a player’s value to their team by estimating points per 100 team possessions that a player contributed above a replacement level player.</p>
+<p>With our two handy statistics, we can find the average win share and VORP per position.</p>
+<p>But would the mean be most reliable, or would finding the median do the trick? To test this, I set up a lollipop chart using win shares as our x axis and position as our y.</p>
+<pre class="r"><code>ggplot() +
+  geom_lollipop(
+    data=players,
+    aes(y=reorder(Pos,WS), x=WS, group=Pos, color=Pos),
+    horizontal = TRUE
+  ) + 
+  theme_minimal() +
+  labs(title = &quot;Outliers abound in win share data&quot;, subtitle = &quot;There are many extreme values that skews the data, particularly amongst shooting guards&quot;, caption = &quot;Source: basketball-reference.com | By Joe Wright&quot;, x=&quot;Win Shares&quot;, y=&quot;Position&quot;) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;),
+    axis.title = element_text(size = 10), 
+    plot.subtitle = element_text(size=10),
+    plot.caption = element_text(size = 8),
+    panel.grid.minor = element_blank()
+    )</code></pre>
+<p><img src="http://joewaynewright.github.io/post/2021/04/05/what-was-the-most-valuable-position-in-the-nba-during-the-2019-2020-season/index_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+To put it simply, this data is definitely skewed. Let’s use shooting guards as an example. Every dot represents one player’s average win share for the season. See that dot furthest on the right shooting guard line? That’s James Harden, whose win shares (13.1) not only greatly out perform the second-ranked shooting guard (Devin Booker, 7.6), but also the rest of the league.</p>
+<p>On the inverse, four of the bottom five ranked players in win shares are shooting guards. Not a great look for the position.</p>
+<p>Want to see an even more extreme example of data extremities? Check out this similar chart that tracks player VORP.</p>
+<pre class="r"><code>ggplot() +
+  geom_lollipop(
+    data=players,
+    aes(y=reorder(Pos,VORP), x=VORP, group=Pos, color=Pos),
+    horizontal = TRUE
+  ) + 
+  theme_minimal() +
+  labs(title = &quot;Clusters and extremeties paint the picture&quot;, subtitle = &quot;All positions cluster around 0 - 2.5 VORP, but some positions have more outliers than others&quot;, caption = &quot;Source: basketball-reference.com | By Joe Wright&quot;, x=&quot;VORP&quot;, y=&quot;Position&quot;) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;),
+    axis.title = element_text(size = 10), 
+    plot.subtitle = element_text(size=10),
+    plot.caption = element_text(size = 8),
+    panel.grid.minor = element_blank()
+    )</code></pre>
+<p><img src="http://joewaynewright.github.io/post/2021/04/05/what-was-the-most-valuable-position-in-the-nba-during-the-2019-2020-season/index_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+Who do you think that far right dot is on the shooting guard line? James Harden, again. While every other position has their own group of outliers, not one shooting guard even comes close to Harden’s value on the court according to VORP.</p>
+<p>So since the data is shown to be skewed, it would be inappropriate to find the mean of win shares and VORP. Rather, we should use the median of win shares among positions to find the best measure of central tendency.</p>
+<p>Let’s use this measurement of central tendency to find out which positions are the most valuable. First thing we must do is make two new data sets for the median of win shares per position and the median of VORP per position.</p>
+<pre class="r"><code>medianWSnba &lt;- players %&gt;%
+  group_by(Pos) %&gt;%
+  summarise(median_winshares = median(WS)) %&gt;%
+  arrange(desc(median_winshares)) %&gt;%
+  top_n(5)</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## Selecting by median_winshares</code></pre>
+<pre class="r"><code>medianVORPnba &lt;- players %&gt;%
+  group_by(Pos) %&gt;%
+  summarise(median_vorp = median(VORP)) %&gt;%
+  arrange(desc(median_vorp)) %&gt;%
+  top_n(5)</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## Selecting by median_vorp</code></pre>
+<p>With our datasets created, we can now make bar charts and arrange them together with the use of the cowplot function. What we find next may shock you.</p>
+<pre class="r"><code>bar1 &lt;- ggplot() + geom_bar(data=medianWSnba, aes(x=reorder(Pos, median_winshares), weight=median_winshares)) +
+  coord_flip() +
+  labs(title=&quot;The &#39;death&#39; of the center has been greatly exaggerated&quot;, subtitle = &quot;Center and point guards dominate player value metrics&quot;, x=&quot;&quot;, y=&quot;Median Win Shares&quot;, caption = &quot;Source: basketball-reference.com | By Joe Wright&quot;) + theme_minimal() +
+    theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;),
+    axis.title = element_text(size = 8), 
+    plot.subtitle = element_text(size=10), 
+    panel.grid.minor = element_blank()
+    )</code></pre>
+<pre class="r"><code>bar2 &lt;- ggplot() + geom_bar(data=medianVORPnba, aes(x=reorder(Pos, median_vorp), weight=median_vorp)) +
+  coord_flip() +
+  labs(title=&quot;&quot;, subtitle = &quot;While small forwards and shooting guards are left in the dust&quot;, x=&quot;&quot;, y=&quot;Median VORP&quot;, caption = &quot;Source: basketball-reference.com | By Joe Wright&quot;) + theme_minimal() +
+    theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;),
+    axis.title = element_text(size = 8), 
+    plot.subtitle = element_text(size=10), 
+    panel.grid.minor = element_blank()
+    )</code></pre>
+<pre class="r"><code>plot_grid(bar1, bar2, ncol=1)</code></pre>
+<p><img src="http://joewaynewright.github.io/post/2021/04/05/what-was-the-most-valuable-position-in-the-nba-during-the-2019-2020-season/index_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+The value of point guards is expected. Being the primary ball handler and distributor of the team, competing teams must have a good point guard if they wish to have a fighting chance come playoff time.</p>
+<p>With that being said, how about those centers? Not only are they neck-and-neck with point guards in median win shares, but they are tied with point guards in VORP.</p>
+<p>The 2019-2020 season was an especially kind one to centers. It was only the second time that a center was voted as the sixth man of the year (before Montrezl Harrell was Bill Walton in 1985-1986), centers Nikola Jokic and Bam Adebayo dominated opponents in the playoff bubble and nine centers were in the top 40 for VORP (the most of any position).</p>
+<p>One thing to note is that small forwards and shooting guards are not represented by a bar on the median VORP chart. That is because those position’s median was exactly zero.</p>
+<p>There’s still a bit more we can do with our data. Instead of looking at win shares and VORP in a vacuum, we can look at them conjointly with a scatterplot. Additionally, we’re going to identify which players refuse to conform to the positional median.</p>
+<p>Remember when we pointed out the outliers in the lollipop chart? We’re going to make a dataset specifically for them for our upcoming chart. They all had two things in common: a VORP above 5 and win shares above 7.</p>
+<pre class="r"><code>bestplayers &lt;- players %&gt;%
+  filter(VORP &gt; 5) %&gt;%
+  filter(WS &gt; 7)</code></pre>
+<p>Now we’re going to make a scatterplot with win shares as our x axis and VORP as our y axis. We’re going to use geom_encircle() to point out where our outlier-breakers are and in what quadrant of the plot they cluster.</p>
+<pre class="r"><code>ggplot() + geom_point(data=players, aes(x=`WS`, y=VORP, group=Pos, color=Pos)) +
+  geom_encircle(data=bestplayers, aes(x=WS, y=VORP), s_shape=.5, expand=0.025, colour=&quot;black&quot;) +
+  geom_text(aes(x=7, y=6, label=&quot;Most Valuable Players&quot;))  +
+  labs(title = &quot;Are the most valuable players comprised of the most valuable positions?&quot;, subtitle=&quot;Point guards make up most of the NBA&#39;s most valuable players&quot;, caption = &quot;Source: basketball-reference.com | By Joe Wright&quot;, x=&quot;Win Shares&quot;, y=&quot;VORP&quot;) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 12, face = &quot;bold&quot;),
+    axis.title = element_text(size = 10), 
+    plot.subtitle = element_text(size=10),
+    plot.caption = element_text(size = 8),
+    panel.grid.minor = element_blank()
+    )</code></pre>
+<p><img src="http://joewaynewright.github.io/post/2021/04/05/what-was-the-most-valuable-position-in-the-nba-during-the-2019-2020-season/index_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>As stated previously, position value clusters between 0 and 2.5 for VORP. For win shares, the cluster is between 0 and 5. Outside of this cluster is where the best NBA players, according to advanced metrics, reside. Finally, the encircled data points are where the NBA elite reside. Breaking down by position, three of the top eight players are listed as point guards (Damian Lillard, Steph Curry and Lebron James). Two of the players in the elite category played on the same team (James and Anthony Davis). Can you guess which team won the NBA championship?</p>
+<p>In conclusion, we found that point guards and centers were the most valuable positions in the 2019-2020 NBA season according to our advanced metrics. However, when breaking down the most valuable players in the league, point guards reigned supreme with three players in the top eight. Only one center, Nikola Jokic, made it to the upper echelon. Coincidentally, we also learned that James Harden is the singular reason why the shooting guard position held any semblance of value in the 2019-2020 season.</p>
+<p>Do you see that purple dot that looks like is almost in a quadrant all of its own? It’s James Harden. Fear the beard.</p>
 
 
   <footer>
