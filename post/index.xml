@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Joe Wright&#39;s Github Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 16 Mar 2021 21:13:14 -0500</lastBuildDate><atom:link href="http://joewaynewright.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 05 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://joewaynewright.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What was the most valuable position in the NBA during the 2019-2020 season?</title>
+      <link>http://joewaynewright.github.io/post/2021/04/05/what-was-the-most-valuable-position-in-the-nba-during-the-2019-2020-season/</link>
+      <pubDate>Mon, 05 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://joewaynewright.github.io/post/2021/04/05/what-was-the-most-valuable-position-in-the-nba-during-the-2019-2020-season/</guid>
+      <description>One of the longest held debates amongst NBA fanatics is over which player deserves the Most Valuable Player (MVP) award for each given season. It is a purposefully subjective award meant that stirs the pot and incites heated arguments between both media members and fans about what value really means in the NBA.
+library(tidyverse)## Warning: package &amp;#39;tidyverse&amp;#39; was built under R version 4.0.4## -- Attaching packages --------------------------------------- tidyverse 1.</description>
+    </item>
+    
     <item>
       <title>Sports Data Analysis and Visualization</title>
       <link>http://joewaynewright.github.io/post/2021/03/16/sports-data-analysis-and-visualization/</link>
@@ -14,38 +24,6 @@
       
       <guid>http://joewaynewright.github.io/post/2021/03/16/sports-data-analysis-and-visualization/</guid>
       <description>This is a faux post for my website so I can get the hang of posting blogs! For my big project this semester, I’m interested in finding out what position in the NBA is the most important? I want to analyze which position brings a team the most win shares and which players in said positions are outliers. I’m also interested in finding out which position has the best shooting percentages, turnover ratio and more!</description>
-    </item>
-    
-    <item>
-      <title>Hello R Markdown</title>
-      <link>http://joewaynewright.github.io/post/2020/12/01/hello-r-markdown/</link>
-      <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
-      
-      <guid>http://joewaynewright.github.io/post/2020/12/01/hello-r-markdown/</guid>
-      <description>R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars)## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.</description>
-    </item>
-    
-    <item>
-      <title>A Plain Markdown Post</title>
-      <link>http://joewaynewright.github.io/post/2016/02/14/a-plain-markdown-post/</link>
-      <pubDate>Sun, 14 Feb 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://joewaynewright.github.io/post/2016/02/14/a-plain-markdown-post/</guid>
-      <description>This sample post is mainly for blogdown users. If you do not use blogdown, you can skip the first section.
-1. Markdown or R Markdown This is a post written in plain Markdown (*.md) instead of R Markdown (*.Rmd). The major differences are:
- You cannot run any R code in a plain Markdown document, whereas in an R Markdown document, you can embed R code chunks (```{r}); A plain Markdown post is rendered through Blackfriday, and an R Markdown document is compiled by rmarkdown and Pandoc.</description>
-    </item>
-    
-    <item>
-      <title>Lorem Ipsum</title>
-      <link>http://joewaynewright.github.io/post/2015/07/23/lorem-ipsum/</link>
-      <pubDate>Thu, 23 Jul 2015 00:00:00 +0000</pubDate>
-      
-      <guid>http://joewaynewright.github.io/post/2015/07/23/lorem-ipsum/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-Quisque mattis volutpat lorem vitae feugiat.</description>
     </item>
     
   </channel>
