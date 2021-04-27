@@ -251,6 +251,10 @@ Of the 1,100 players from 2000-2018 with 40-yard dash times of 4.5 or faster, on
 <p>Additonally, the biggest cluster of fast players is in the top 100 picks, which encompasses the first three rounds of the seven round NFL Draft process. The Higher the pick, the more valuable the player, and teams clearly value speed.</p>
 <p>So now that we know the NFL as a whole values speed in the draft, which teams value speed over others? To find this out, I made a data set of NFL teams and their draft picks over the course of 2000 to 2018.</p>
 <p>Just because a prospect attends the NFL combine doesn’t mean that they run the 40-yard dash. 2019 NFL MVP Lamar Jackson is a prime example of this. Since I was interested in the 40-yard dash, I filtered out selections who didn’t run a 40. I then found the average 40-yard dash time of each team’s draft selections.</p>
+      
+      <img src="2021-04-27-40/NFLCombineTeamAverage.jpg">
+      
+      
 <pre class="r"><code>teamcombineaverage &lt;- combine %&gt;%
   filter(Forty &gt; 0) %&gt;%
   group_by(Team) %&gt;%
