@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Is the 40-yard dash a predictor for NFL success? - Joe Wright&#39;s Github Site</title>
+    <meta property="og:title" content="Is the 40-yard dash a predictor for NFL success? - Joe Wright&#39;s Github Site">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="Come NFL Draft season, no prospect testing metric is talked about more than the prestigious 40-yard dash. This famous sprint tasks NFL hopefuls with covering 40 yards of ground in the fastest time &amp;hellip;">
+      <meta property="og:description" content="Come NFL Draft season, no prospect testing metric is talked about more than the prestigious 40-yard dash. This famous sprint tasks NFL hopefuls with covering 40 yards of ground in the fastest time &amp;hellip;">
+      
+    
+
+    
+    
+    <meta name="twitter:image" content="http://joewaynewright.github.io/post/2021/04/27/40/index_files/figure-html/unnamed-chunk-5-1.png">
+    
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+
+  
+  <body class="post">
+    <header class="masthead">
+      <h1><a href="/">Joe Wright&#39;s Github Site</a></h1>
+
+<p class="tagline">A website by Joe Wright, sophomore Sports Media Communications and Advertising/Public Relations double major.</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/">Home</a></li>
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/categories/">Categories</a></li>
+  
+  <li><a href="/tags/">Tags</a></li>
+  
+  <li><a href="https://twitter.com/joewaynewright?s=21">Twitter</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Is the 40-yard dash a predictor for NFL success?</h1>
+
+<h3>Joe Wright
+  /  2021-04-27</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+<script src="http://joewaynewright.github.io/post/2021/04/27/40/index_files/header-attrs/header-attrs.js"></script>
+<script src="http://joewaynewright.github.io/post/2021/04/27/40/index_files/kePrint/kePrint.js"></script>
+<link href="http://joewaynewright.github.io/post/2021/04/27/40/index_files/lightable/lightable.css" rel="stylesheet" />
+
+
+<p>Come NFL Draft season, no prospect testing metric is talked about more than the prestigious 40-yard dash. This famous sprint tasks NFL hopefuls with covering 40 yards of ground in the fastest time possible. The test is particularly important for offensive skill positions like running back and wide receiver, as acceleration and speed is a catalyst for offensive firepower.</p>
+<p>But is the 40-yard dash a predictor for NFL success? Do prospects who run a fast 40 get drafted at a higher rate than those who don’t? And what teams prioritize the 40-yard dash the most? These are all questions I will uncover in this statistical analysis.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.0.4</code></pre>
+<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --</code></pre>
+<pre><code>## v ggplot2 3.3.3     v purrr   0.3.4
+## v tibble  3.0.4     v dplyr   1.0.2
+## v tidyr   1.1.2     v stringr 1.4.0
+## v readr   1.4.0     v forcats 0.5.0</code></pre>
+<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(ggalt)</code></pre>
+<pre><code>## Warning: package &#39;ggalt&#39; was built under R version 4.0.4</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;ggalt&#39;:
+##   method                  from   
+##   grid.draw.absoluteGrob  ggplot2
+##   grobHeight.absoluteGrob ggplot2
+##   grobWidth.absoluteGrob  ggplot2
+##   grobX.absoluteGrob      ggplot2
+##   grobY.absoluteGrob      ggplot2</code></pre>
+<pre class="r"><code>library(ggrepel)</code></pre>
+<pre><code>## Warning: package &#39;ggrepel&#39; was built under R version 4.0.4</code></pre>
+<pre class="r"><code>library(cowplot)</code></pre>
+<pre><code>## Warning: package &#39;cowplot&#39; was built under R version 4.0.4</code></pre>
+<pre class="r"><code>library(readr)
+library(dplyr)
+library(scales)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;scales&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     discard</code></pre>
+<pre><code>## The following object is masked from &#39;package:readr&#39;:
+## 
+##     col_factor</code></pre>
+<pre class="r"><code>library(kableExtra)</code></pre>
+<pre><code>## Warning: package &#39;kableExtra&#39; was built under R version 4.0.4</code></pre>
+<pre><code>## 
+## Attaching package: &#39;kableExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     group_rows</code></pre>
+<pre class="r"><code>library(formattable)</code></pre>
+<pre><code>## Warning: package &#39;formattable&#39; was built under R version 4.0.4</code></pre>
+<pre><code>## 
+## Attaching package: &#39;formattable&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:scales&#39;:
+## 
+##     comma, percent, scientific</code></pre>
+<pre class="r"><code>library(jpeg)
+library(imager)</code></pre>
+<pre><code>## Warning: package &#39;imager&#39; was built under R version 4.0.5</code></pre>
+<pre><code>## Loading required package: magrittr</code></pre>
+<pre><code>## 
+## Attaching package: &#39;magrittr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     set_names</code></pre>
+<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     extract</code></pre>
+<pre><code>## 
+## Attaching package: &#39;imager&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:magrittr&#39;:
+## 
+##     add</code></pre>
+<pre><code>## The following object is masked from &#39;package:cowplot&#39;:
+## 
+##     draw_text</code></pre>
+<pre><code>## The following object is masked from &#39;package:stringr&#39;:
+## 
+##     boundary</code></pre>
+<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     fill</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     convolve, spectrum</code></pre>
+<pre><code>## The following object is masked from &#39;package:graphics&#39;:
+## 
+##     frame</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     save.image</code></pre>
+<p>In this analysis I will be using two data sets. The first data set is from football-reference.com and contains NFL combine results from 2000 to 2018.The second data set is also from football-reference.com and contains the top 20 40-yard dash times from offensive players.</p>
+<pre class="r"><code>combine &lt;- read_csv(&quot;combinedata.csv&quot;) </code></pre>
+<pre><code>## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   Player = col_character(),
+##   Pos = col_character(),
+##   Ht = col_double(),
+##   Wt = col_double(),
+##   Forty = col_double(),
+##   Vertical = col_double(),
+##   BenchReps = col_double(),
+##   BroadJump = col_double(),
+##   Cone = col_double(),
+##   Shuttle = col_double(),
+##   Year = col_double(),
+##   Pfr_ID = col_character(),
+##   AV = col_double(),
+##   Team = col_character(),
+##   Round = col_double(),
+##   Pick = col_double(),
+##   YardsfromScrimmage = col_double(),
+##   CareerLength = col_double()
+## )</code></pre>
+<pre class="r"><code>top20combine &lt;- read_csv(&quot;top20combinedata.csv&quot;) </code></pre>
+<pre><code>## 
+## -- Column specification --------------------------------------------------------
+## cols(
+##   Player = col_character(),
+##   Pos = col_character(),
+##   Ht = col_double(),
+##   Wt = col_double(),
+##   Forty = col_double(),
+##   Vertical = col_character(),
+##   BenchReps = col_double(),
+##   BroadJump = col_double(),
+##   Cone = col_double(),
+##   Shuttle = col_double(),
+##   Year = col_double(),
+##   Pfr_ID = col_character(),
+##   AV = col_double(),
+##   Team = col_character(),
+##   Round = col_double(),
+##   Pick = col_double(),
+##   YardsfromScrimmage = col_double(),
+##   CareerLength = col_double()
+## )</code></pre>
+<p>I first want to uncover if NFL teams value the 40-yard dash as much as the media. There have been many NFL general managers and owners who have fawned over speed. The most popular example is former Raiders’ owner and general manager Al Davis. Davis famously said, “You make sure the opposing defense goes to bed the night before the game knowing, fearing that they will be facing somebody who can beat them deep on any play.”</p>
+<p>Speed may be valuable to Davis, but how much draft capitol are teams willing to spend on fast players? To analyze this, I made a scatterplot of every player drafted from 2000 to 2018 who recorded a 40-yard dash at the NFL Combine. To separate the speedsters from the rest of the pack, I made a new data set titled “fastplayers,” which filtered out all players who did not run a 40-yard dash of 4.5 seconds or less. According to a five-year NFL combine report, running backs, cornerbacks and running backs have an average 40-yard dash time of around 4.48-4.49. Since these positions typically have the fastest players, I thought 4.5 would be a good cutoff point in determining speed.</p>
+<pre class="r"><code>fastplayers &lt;- combine %&gt;%
+  filter(Forty &lt;= 4.5)</code></pre>
+<p>With my two data sets, I constructed my scatterplot with the 40-yard dash time as the x-axis and draft selection as my y-axis.</p>
+<pre class="r"><code>ggplot() + geom_point(data=combine, aes(x=Forty, y=Pick)) +
+  geom_point(data=fastplayers, aes(x=Forty, y=Pick), color=&quot;Red&quot;) +
+  scale_y_reverse() +
+  labs(title=&quot;Speed is supreme in the NFL Draft&quot;, subtitle=&quot;Fast players are prioritized and are most commonly picked in the top 100&quot;, caption=&quot;Source: football-reference.com | By Joe Wright&quot;, x=&quot;40-Yard Dash&quot;, y=&quot;Draft selection&quot;) + 
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(size = 18, face = &quot;bold&quot;),
+    axis.title = element_text(size = 9), 
+    plot.subtitle = element_text(size=11),
+    plot.caption = element_text(size = 8),
+    panel.grid.minor = element_blank()
+    )</code></pre>
+<pre><code>## Warning: Removed 2530 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 246 rows containing missing values (geom_point).</code></pre>
+<p><img src="http://joewaynewright.github.io/post/2021/04/27/40/index_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+Of the 1,100 players from 2000-2018 with 40-yard dash times of 4.5 or faster, only 246 went undrafted. In this stretch of time, fast players had a 85.4% chance of being drafted. This number is staggeringly high, as 59.3% of all players who attended the NFL combine in this time period got drafted.</p>
+<p>Additonally, the biggest cluster of fast players is in the top 100 picks, which encompasses the first three rounds of the seven round NFL Draft process. The Higher the pick, the more valuable the player, and teams clearly value speed.</p>
+<p>So now that we know the NFL as a whole values speed in the draft, which teams value speed over others? To find this out, I made a data set of NFL teams and their draft picks over the course of 2000 to 2018.</p>
+<p>Just because a prospect attends the NFL combine doesn’t mean that they run the 40-yard dash. 2019 NFL MVP Lamar Jackson is a prime example of this. Since I was interested in the 40-yard dash, I filtered out selections who didn’t run a 40. I then found the average 40-yard dash time of each team’s draft selections.</p>
+<pre class="r"><code>teamcombineaverage &lt;- combine %&gt;%
+  filter(Forty &gt; 0) %&gt;%
+  group_by(Team) %&gt;%
+  summarise(Average40 = mean(Forty)) %&gt;%
+  arrange(Average40)</code></pre>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre class="r"><code>teamcombineaverage %&gt;% 
+  kable() %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;condensed&quot;)) %&gt;%
+  row_spec(1, bold = T, color = &quot;white&quot;, background = &quot;#006778&quot;) %&gt;%
+  column_spec(1, bold=T)</code></pre>
+<table class="table table-striped table-condensed" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+Average40
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;color: white !important;background-color: #006778 !important;font-weight: bold;">
+Jaguars
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: #006778 !important;">
+4.707736
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Titans
+</td>
+<td style="text-align:right;">
+4.717520
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Raiders
+</td>
+<td style="text-align:right;">
+4.718585
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Chiefs
+</td>
+<td style="text-align:right;">
+4.720654
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Cowboys
+</td>
+<td style="text-align:right;">
+4.725133
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Browns
+</td>
+<td style="text-align:right;">
+4.728195
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Bears
+</td>
+<td style="text-align:right;">
+4.729406
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Bengals
+</td>
+<td style="text-align:right;">
+4.729919
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Jets
+</td>
+<td style="text-align:right;">
+4.732913
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Falcons
+</td>
+<td style="text-align:right;">
+4.734956
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Rams
+</td>
+<td style="text-align:right;">
+4.736810
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Giants
+</td>
+<td style="text-align:right;">
+4.739515
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Eagles
+</td>
+<td style="text-align:right;">
+4.748160
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Texans
+</td>
+<td style="text-align:right;">
+4.748774
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Football Team
+</td>
+<td style="text-align:right;">
+4.750370
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Vikings
+</td>
+<td style="text-align:right;">
+4.752540
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Packers
+</td>
+<td style="text-align:right;">
+4.753200
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+49ers
+</td>
+<td style="text-align:right;">
+4.754627
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Saints
+</td>
+<td style="text-align:right;">
+4.758041
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Broncos
+</td>
+<td style="text-align:right;">
+4.759174
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Colts
+</td>
+<td style="text-align:right;">
+4.760541
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Lions
+</td>
+<td style="text-align:right;">
+4.762000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Bills
+</td>
+<td style="text-align:right;">
+4.766290
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Seahawks
+</td>
+<td style="text-align:right;">
+4.770157
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Panthers
+</td>
+<td style="text-align:right;">
+4.773276
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Buccaneers
+</td>
+<td style="text-align:right;">
+4.773578
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Ravens
+</td>
+<td style="text-align:right;">
+4.776870
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Dolphins
+</td>
+<td style="text-align:right;">
+4.781930
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Steelers
+</td>
+<td style="text-align:right;">
+4.783388
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Cardinals
+</td>
+<td style="text-align:right;">
+4.784348
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Chargers
+</td>
+<td style="text-align:right;">
+4.786330
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Patriots
+</td>
+<td style="text-align:right;">
+4.806372
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+NA
+</td>
+<td style="text-align:right;">
+4.832863
+</td>
+</tr>
+</tbody>
+</table>
+<p>Although we previously mentioned the Raiders’ obsession with speed, it looks like Jacksonville has them beat. The Jaguars drafted 18 players with 40 times of 4.5 or faster from 2000 to 2018, with standouts being star cornerback Jalen Ramsey (4.41) and Pocket Hercules himself, running back Maurice Jones-Drew (4.39).</p>
+<p>At the height of the Jacksonville Jaguar’s dominance in 2018, Jacksonville’s defense was filled to the brim with speedsters. Ramsey, A.J. Bouye (4.55) and Aaron Colvin (4.51) stopped pass catchers while agile linebackers Myles Jack (4.56) and Telvin Smith (4.52) were run stopping machines. If only the Jaguars didn’t have Blake Bortles as a quarterback.</p>
+<p>The slowest team was the Patriots, who came in at an average 40-time of 4.8, .2 lower than the next slowest team in the Chargers. The Patriots drafted more speedy players than the Jaguars (27 players with a 4.5 or faster 40-yard dash), but the Patriots spent the majority of their picks on defensive tackles, offensive linemen and some guy named Tom Brady. Clearly, drafting slower players did not impact the Patriots’ success. It didn’t affect the Pittsburgh Steelers’ success either, even though the black and gold were the fourth slowest drafting team.</p>
+<p>Finally, NA stands for players who were not drafted by any organization. It comes at no surprise to say that the undrafted players were the slowest. Speed clearly isn’t everything, but you have to have it to succeed.</p>
+<p>Finally, let’s see if fast 40-yard dash times are an indicator of NFL success. The .csv file from football-reference.com did not contain NFL stats from drafted prospects, so I collected NFL statistics from the top 20 fastest finishers on the offensive side of the ball. There were many cornerbacks who finished with blazing fast 40s, but it wouldn’t make sense to compare cornerbacks with running backs and wide receivers.</p>
+<p>With the new data in place, I decided to make a bubble chart. My x-axis would be the forty-yard dash time, the y-axis would be yards from scrimmage (which stands for rushing and receiving yards gained) and the size of my bubble would be determined by career length.</p>
+<p>Production is an important stat to look at, which is why I chose yards from scrimmage as my y-axis, but I was also interested in the durability of the fastest players. The average NFL career lasts just 2.5 years according to sportscasting.com, can the top 40-yard dash performers defy these odds?</p>
+<pre class="r"><code>ggplot() + 
+  geom_point(
+    data=top20combine,
+    aes(x=Forty, y=YardsfromScrimmage, size=CareerLength, 
+    group=Pos, 
+    color=Pos), 
+    alpha = .3) +
+  geom_text(aes(x=4.24, y=11000, label=&quot;Chris Johnson&quot;)) + 
+  geom_text(aes(x=4.305, y=9500, label=&quot;Santana Moss&quot;)) + 
+  scale_size(range = c(3, 8), name=&quot;Career Length&quot;) +
+  labs(title=&quot;Do the NFL&#39;s fastest runners flame out?&quot;, subtitle=&quot;The fastest players have longer careers, but sparingly produce&quot;, caption=&quot;Source: football-reference.com | By Joe Wright&quot;, x=&quot;40-Yard Dash&quot;, y=&quot;Yards from Scrimmage&quot;) + 
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;),
+    axis.title = element_text(size = 9), 
+    plot.subtitle = element_text(size=10),
+    plot.caption = element_text(size = 8),
+    panel.grid.minor = element_blank()
+    )</code></pre>
+<p><img src="http://joewaynewright.github.io/post/2021/04/27/40/index_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+The NFL’s fastest 20 offensive players did have longer careers than the average NFL player with an average of 5.7 years in a career, but only 6 of the 20 players lasted longer than five years in the league. Additionally, only two players produced more than 5,000 yards from scrimmage. These two players are Chris Johnson and Santana Moss.</p>
+<p>Chris Johnson, otherwise known as CJ2K for his 2,006 yards rushing achieved in 2009, was an electric player who’s career was unfortunately marred by injuries after his time with the Tennessee Titans. Santana Moss had the longest career of the top 20 players at 14 years. Splitting his time between the Jets and Washington, Moss had four seasons with over 1,000 yards receiving. He totaled 66 touchdowns in his career and averaged fourteen yards per catch.</p>
+<p>But these two success stories may be overshadowed by the amount of draft busts with fast 40-yard dashes. The fastest 40-yard dash performer ever, John Ross, was cut by the Bengals in just four years of play. Dri Archer, who recorded the fourth-fastest 40-yard dash, never recorded a single rushing yard. Darrius Heyward-Bey, one of Al Davis’ most well-known busts, could never stay healthy and thus never produce.</p>
+<p>It can be concluded that the 40-yard dash is valued by NFL teams, and some teams more than others, but it doesn’t equate to NFL success. The 40-yard dash isn’t meaningless, but the amount of weight and press that the event is given is certainly overblown.</p>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/post/2021/04/05/what-was-the-most-valuable-position-in-the-nba-during-the-2019-2020-season/">What was the most valuable position in the NBA during the 2019-2020 season?</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">© <a href="https://yihui.name">Joe Wright</a> 2021 | <a href="https://github.com/joewaynewright/joewaynewright.github.io">Github</a> | <a href="https://twitter.com/joewaynewright">Twitter</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
